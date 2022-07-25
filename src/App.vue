@@ -1,17 +1,32 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <img alt="Vue logo" src="./assets/logo.jpg" class="logo">
+    <div class="row">
+      <div class="col">
+          <FormularioVue :UsuariosRegistrados="UsuariosRegistrados" :RegistroTerminado="RegistroTerminado"></FormularioVue>
+      </div>
+      <div class="col">
+          <TablaRegistro :UsuariosRegistrados="UsuariosRegistrados"></TablaRegistro>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import FormularioVue from './components/FormularioVue.vue'
+import TablaRegistro from './components/TablaRegistros.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    FormularioVue,
+    TablaRegistro
+  },
+  data() {
+    const UsuariosRegistrados = []
+    return {
+      UsuariosRegistrados
+    }
   }
 }
 </script>
@@ -23,6 +38,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin: 15pt;
+}
+.logo {
+  width: 6em;
 }
 </style>
