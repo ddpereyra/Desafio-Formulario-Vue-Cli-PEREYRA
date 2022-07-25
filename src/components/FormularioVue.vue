@@ -85,11 +85,17 @@
             if(moment().diff(this.nacimiento, 'years') < 18) {
                 this.errors.push({id:"nacimiento", msg: "Debe ser mayor de edad"})
             }
-            if(this.rifa === 0) {
-                this.errors.push({id:"rifa", msg: "Nro. de rifa requerido"})
+            if(this.rifa < 1 || this.rifa > 100) {
+                this.errors.push({id:"rifa", msg: "El numero debe estar entre 1 y 100"})
+            }
+            if(this.$props.UsuariosRegistrados.find(u => u.rifa === this.rifa)) {
+                this.errors.push({id:"rifa", msg: "Numero ya elegido"})
             }
             if(this.mail === "") {
                 this.errors.push({id:"mail", msg: "Mail requerido"})
+            }
+            if(this.$props.UsuariosRegistrados.find(u => u.mail === this.mail)) {
+                this.errors.push({id:"mail", msg: "Mail ya registrado, solo un numero por persona"})
             }
             if(this.errors.length === 0){
                 return true
@@ -109,7 +115,7 @@
         clearForm(){
             this.nombre = ''
             this.apellido = ''
-            this.nacimiento = new Date()
+            this.nacimiento = moment(String(new Date())).format('YYYY-MM-DD')
             this.rifa = 0
             this.mail = ''
         },
